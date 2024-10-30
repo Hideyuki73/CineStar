@@ -56,10 +56,10 @@ class UserController
         }
     }
 
-    public function update()
+    public function update($id)
     {
         $data = json_decode(file_get_contents("php://input"));
-        if (isset($data->id) && isset($data->nickname) && isset($data->email) && isset($data->password)) {
+        if (isset($id) && isset($data->nickname) && isset($data->email) && isset($data->password)) {
             try {
                 $count = $this->user->update($data->id, $data->nickname, $data->email);
                 if ($count > 0) {
@@ -79,10 +79,10 @@ class UserController
         }
     }
 
-    public function delete()
+    public function delete($id)
     {
         $data = json_decode(file_get_contents("php://input"));
-        if (isset($data->id)) {
+        if (isset($id)) {
             try {
                 $count = $this->user->delete($data->id);
 
