@@ -4,7 +4,7 @@
 O intuito do site é ser um lugar para avaliar os filmes, mostrando se gostou ou não, podendo ser usado por qualquer tipo de usuário
 
 ## Diagrama
-
+https://drive.google.com/file/d/1qf0WfyXkwxMwQ7O50s0TFNYGAFkt_eau/view?usp=drive_link
 
 ## Funcionalidades
 Cadastro e login do usuário
