@@ -6,14 +6,7 @@ require_once 'router.php';
 header("Content-type: application/json; charset=UTF-8");
 
 $router = new Router();
-$userController = new UserController($pdo);
 $movieController = new MovieController($pdo);
-
-$router->add('get', '/users', [$userController, 'list']);
-$router->add('get', '/users/{id}', [$userController, 'getById']);
-$router->add('post', '/users', [$userController, 'create']);
-$router->add('delete', '/users/{id}', [$userController, 'delete']);
-$router->add('put', '/users/{id}', [$userController, 'update']);
 
 $router->add('get', '/movies', [$movieController, 'list']);
 $router->add('get', '/movies/{id}', [$movieController, 'getById']);

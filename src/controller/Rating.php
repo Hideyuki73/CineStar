@@ -1,27 +1,27 @@
 <?php
-require_once '../models/Movie.php';
+require_once '../models/Rating.php';
 
-class MovieController
+class RatingController
 {
-    private $movie;
+    private $rating;
 
     public function __construct($db)
     {
-        $this->movie = new Movie($db);
+        $this->rating = new Rating($db);
     }
 
     public function list()
     {
-        $movie = $this->movie->list();
-        echo json_encode($movie);
+        $rating = $this->rating->list();
+        echo json_encode($rating);
     }
 
     public function create()
     {
         $data = json_decode(file_get_contents("php://input"));
-        if (isset($data->name) && isset($data->description)) {
+        if (isset($data->rating)) {
             try {
-                $this->movie->create($data->name, $data->description);
+                $this->rating->create($data->rating);
 
                 http_response_code(201);
                 echo json_encode(["message" => "Filme criado com sucesso."]);
@@ -39,9 +39,9 @@ class MovieController
     {
         if (isset($id)) {
             try {
-                $movie = $this->movie->getById($id);
-                if ($movie) {
-                    echo json_encode($movie);
+                $rating = $this->rating->getById($id);
+                if ($rating) {
+                    echo json_encode($rating);
                 } else {
                     http_response_code(404);
                     echo json_encode(["message" => "Filme não encontrado."]);
@@ -59,9 +59,9 @@ class MovieController
     public function update($id)
     {
         $data = json_decode(file_get_contents("php://input"));
-        if (isset($id) && isset($data->name) && isset($data->description) && isset($data->rating)) {
+        if (isset($id) && isset($data->rating)) {
             try {
-                $count = $this->movie->update($data->id, $data->name, $data->description, $data->rating);
+                $count = $this->rating->update($data->id, $data->rating);
                 if ($count > 0) {
                     http_response_code(200);
                     echo json_encode(["message" => "Filme atualizado com sucesso."]);
@@ -84,7 +84,7 @@ class MovieController
         $data = json_decode(file_get_contents("php://input"));
         if (isset($id)) {
             try {
-                $count = $this->movie->delete($data->id);
+                $count = $this->rating->delete($data->id);
 
                 if ($count > 0) {
                     http_response_code(200);
