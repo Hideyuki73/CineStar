@@ -14,8 +14,13 @@ Usuário pode avaliar o filmes de 0 a 10
 ## Tecnologias
 PHP
 PHPunit
-MySQL
+PostgreSQL
 Composer
+
+## Rotas
+http://localhost:8080/src/api/users
+http://localhost:8080/src/api/movies
+http://localhost:8080/src/api/rating
 
 ## Autor
 Rodrigo Hideyuki Kawakami

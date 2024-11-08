@@ -10,18 +10,18 @@ class Movie
         $this->conn = $db;
     }
 
-    public function create($name, $description)
+    public function create($nome, $descricao)
     {
-        $sql = "INSERT INTO movie (name, description) VALUES (:name, :description)";
+        $sql = "INSERT INTO movies (nome, descricao) VALUES (:nome, :descricao)";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bindParam(':name', $name);
-        $stmt->bindParam(':description', $description);
+        $stmt->bindParam(':nome', $nome);
+        $stmt->bindParam(':descricao', $descricao);
         return $stmt->execute();
     }
 
     public function list()
     {
-        $sql = "SELECT id, name FROM users";
+        $sql = "SELECT id, nome FROM movies";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -29,20 +29,20 @@ class Movie
 
     public function getById($id)
     {
-        $sql = "SELECT * FROM users WHERE id = :id";
+        $sql = "SELECT * FROM movies WHERE id = :id";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function update($id, $name, $description, $rating)
+    public function update($id, $nome, $descricao, $rating)
     {
-        $sql = "UPDATE users SET name = :name, description = :description, rating = :rating WHERE id = :id";
+        $sql = "UPDATE movies SET nome = :nome, descricao = :descricao, rating = :rating WHERE id = :id";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':id', $id);
-        $stmt->bindParam(':name', $name);
-        $stmt->bindParam(':description', $description);
+        $stmt->bindParam(':nome', $nome);
+        $stmt->bindParam(':descricao', $descricao);
         $stmt->bindParam(':rating', $rating);
         $stmt->execute();
         return $stmt->rowCount();
@@ -50,7 +50,7 @@ class Movie
 
     public function delete($id)
     {
-        $sql = "DELETE FROM users WHERE id = :id";
+        $sql = "DELETE FROM movies WHERE id = :id";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':id', $id);
         $stmt->execute();

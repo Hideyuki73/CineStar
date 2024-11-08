@@ -1,5 +1,5 @@
 <?php
-require_once '../models/Rating.php';
+require_once '../model/Rating.php';
 
 class RatingController
 {
@@ -19,9 +19,9 @@ class RatingController
     public function create()
     {
         $data = json_decode(file_get_contents("php://input"));
-        if (isset($data->rating)) {
+        if (isset($data->rating) && isset($data->id_users) && isset($data->id_movies)) {
             try {
-                $this->rating->create($data->rating);
+                $this->rating->create($data->rating, $data->id_users, $data->id_movies);
 
                 http_response_code(201);
                 echo json_encode(["message" => "Filme criado com sucesso."]);

@@ -1,5 +1,5 @@
 <?php
-require_once '../models/Movie.php';
+require_once '../model/Movie.php';
 
 class MovieController
 {
@@ -19,9 +19,9 @@ class MovieController
     public function create()
     {
         $data = json_decode(file_get_contents("php://input"));
-        if (isset($data->name) && isset($data->description)) {
+        if (isset($data->nome) && isset($data->descricao)) {
             try {
-                $this->movie->create($data->name, $data->description);
+                $this->movie->create($data->nome, $data->descricao);
 
                 http_response_code(201);
                 echo json_encode(["message" => "Filme criado com sucesso."]);
@@ -59,9 +59,9 @@ class MovieController
     public function update($id)
     {
         $data = json_decode(file_get_contents("php://input"));
-        if (isset($id) && isset($data->name) && isset($data->description) && isset($data->rating)) {
+        if (isset($id) && isset($data->nome) && isset($data->descricao) && isset($data->rating)) {
             try {
-                $count = $this->movie->update($data->id, $data->name, $data->description, $data->rating);
+                $count = $this->movie->update($data->id, $data->nome, $data->descricao, $data->rating);
                 if ($count > 0) {
                     http_response_code(200);
                     echo json_encode(["message" => "Filme atualizado com sucesso."]);

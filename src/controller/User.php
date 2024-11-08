@@ -1,5 +1,5 @@
 <?php
-require_once '../models/User.php';
+require_once '../model/User.php';
 
 class UserController
 {
@@ -19,9 +19,9 @@ class UserController
     public function create()
     {
         $data = json_decode(file_get_contents("php://input"));
-        if (isset($data->nickname) && isset($data->email) && isset($data->password)) {
+        if (isset($data->nickname) && isset($data->email) && isset($data->senha)) {
             try {
-                $this->user->create($data->name, $data->email, $data->password);
+                $this->user->create($data->name, $data->email, $data->senha);
 
                 http_response_code(201);
                 echo json_encode(["message" => "Usuário criado com sucesso."]);
@@ -59,7 +59,7 @@ class UserController
     public function update($id)
     {
         $data = json_decode(file_get_contents("php://input"));
-        if (isset($id) && isset($data->nickname) && isset($data->email) && isset($data->password)) {
+        if (isset($id) && isset($data->nickname) && isset($data->email) && isset($data->senha)) {
             try {
                 $count = $this->user->update($data->id, $data->nickname, $data->email);
                 if ($count > 0) {

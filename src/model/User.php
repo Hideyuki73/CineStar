@@ -10,13 +10,13 @@ class User
         $this->conn = $db;
     }
 
-    public function create($nickname, $email, $password)
+    public function create($nickname, $email, $senha)
     {
-        $sql = "INSERT INTO users (nickname,email,password) VALUES (:nickname, :email, :password)";
+        $sql = "INSERT INTO users (nickname,email,senha) VALUES (:nickname, :email, :senha)";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':nickname', $nickname);
         $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':password', $password);
+        $stmt->bindParam(':senha', $senha);
         return $stmt->execute();
     }
 
