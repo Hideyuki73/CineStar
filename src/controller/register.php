@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'senha' => $senha
     ];
 
-    $ch = curl_init("http://localhost/src/api/users"); // URL configurada com o router para a rota /users
+    $ch = curl_init("http://localhost:8000/src/api/users"); // URL configurada com o router para a rota /users
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));

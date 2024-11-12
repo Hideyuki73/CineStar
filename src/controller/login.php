@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     ];
 
     // Atualize o endpoint para o correto de login
-    $ch = curl_init("http://localhost/src/api/users/login"); // Rota configurada para o login
+    $ch = curl_init("http://localhost:8000/src/api/users/login"); // Rota configurada para o login
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
