@@ -37,13 +37,23 @@ class User
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function update($id, $nickname, $email)
+    public function getByEmail($email)
     {
-        $sql = "UPDATE users SET nickname = :nickname, email = :email WHERE id = :id";
+        $sql = "SELECT * FROM users WHERE email = :email";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function update($id, $nickname, $email, $senha)
+    {
+        $sql = "UPDATE users SET nickname = :nickname, email = :email, senha = :senha WHERE id = :id";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':id', $id);
         $stmt->bindParam(':nickname', $nickname);
         $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':senha', $senha);
         $stmt->execute();
         return $stmt->rowCount();
     }

@@ -1,0 +1,70 @@
+/* Reseta estilos padrões para manter consistência */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+/* Estilo do cabeçalho */
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 2em;
+    color: #333;
+}
+
+header p {
+    font-size: 1.1em;
+    color: #555;
+}
+
+/* Estilos principais */
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.auth-links {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* Estilo dos botões */
+.button {
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    text-align: center;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilo do rodapé */
+footer {
+    margin-top: 40px;
+    font-size: 0.9em;
+    color: #777;
+}

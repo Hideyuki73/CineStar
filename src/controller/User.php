@@ -56,12 +56,32 @@ class UserController
         }
     }
 
+    public function getByEmail($email){
+        if (isset($email)) {
+            try {
+                $user = $this->user->getByEmail($email);
+                if ($user) {
+                    echo json_encode($user);
+                } else {
+                    http_response_code(404);
+                    echo json_encode(["message" => "Usuário não encontrado."]);
+                }
+            } catch (\Throwable $th) {
+                http_response_code(500);
+                echo json_encode(["message" => "Erro ao buscar o usuário."]);
+            }
+        } else {
+            http_response_code(400);
+            echo json_encode(["message" => "Dados incompletos."]);
+        }
+    }
+
     public function update($id)
     {
         $data = json_decode(file_get_contents("php://input"));
         if (isset($id) && isset($data->nickname) && isset($data->email) && isset($data->senha)) {
             try {
-                $count = $this->user->update($data->id, $data->nickname, $data->email);
+                $count = $this->user->update($data->id, $data->nickname, $data->email, $data->senha);
                 if ($count > 0) {
                     http_response_code(200);
                     echo json_encode(["message" => "Usuário atualizado com sucesso."]);
@@ -102,4 +122,30 @@ class UserController
             echo json_encode(["message" => "Dados incompletos."]);
         }
     }
+
+    public function login()
+{
+    $data = json_decode(file_get_contents("php://input"));
+    if (isset($data->email) && isset($data->senha)) {
+        $email = $data->email;
+        $senha = $data->senha;
+
+        $user = $this->user->getByEmail($email);
+
+        if ($user && password_verify($senha, $user['senha'])) {
+            echo json_encode([
+                "status" => "success",
+                "message" => "Login realizado com sucesso.",
+                "user_id" => $user['id']
+            ]);
+        } else {
+            http_response_code(401);
+            echo json_encode(["status" => "error", "message" => "Email ou senha incorretos."]);
+        }
+    } else {
+        http_response_code(400);
+        echo json_encode(["status" => "error", "message" => "Dados incompletos."]);
+    }
+}
+
 }

@@ -14,6 +14,7 @@ $userController = new UserController($pdo);
 
 $router->add('get', '/users', [$userController, 'list']);
 $router->add('get', '/users/{id}', [$userController, 'getById']);
+$router->add('get', '/users/{email}', [$userController, 'getByEmail']);
 $router->add('post', '/users', [$userController, 'create']);
 $router->add('delete', '/users/{id}', [$userController, 'delete']);
 $router->add('put', '/users/{id}', [$userController, 'update']);
