@@ -22,7 +22,7 @@ class Rating
 
     public function list()
     {
-        $sql = "SELECT id, name FROM rating";
+        $sql = "SELECT id, rating FROM rating";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

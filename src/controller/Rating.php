@@ -16,18 +16,17 @@ class RatingController
         echo json_encode($rating);
     }
 
-    public function create()
+    public function create($rating, $userId, $movieId)
     {
-        $data = json_decode(file_get_contents("php://input"));
-        if (isset($data->rating) && isset($data->id_users) && isset($data->id_movies)) {
+        if (isset($rating) && isset($userId) && isset($movieId)) {
             try {
-                $this->rating->create($data->rating, $data->id_users, $data->id_movies);
-
+                $this->rating->create($rating, $userId, $movieId);
+    
                 http_response_code(201);
-                echo json_encode(["message" => "Filme criado com sucesso."]);
+                echo json_encode(["message" => "Avaliação criada com sucesso."]);
             } catch (\Throwable $th) {
                 http_response_code(500);
-                echo json_encode(["message" => "Erro ao criar o filme."]);
+                echo json_encode(["message" => "Erro ao criar a avaliação."]);
             }
         } else {
             http_response_code(400);
@@ -44,11 +43,11 @@ class RatingController
                     echo json_encode($rating);
                 } else {
                     http_response_code(404);
-                    echo json_encode(["message" => "Filme não encontrado."]);
+                    echo json_encode(["message" => "Avaliacao não encontrado."]);
                 }
             } catch (\Throwable $th) {
                 http_response_code(500);
-                echo json_encode(["message" => "Erro ao buscar o filme."]);
+                echo json_encode(["message" => "Erro ao buscar o Avaliacao."]);
             }
         } else {
             http_response_code(400);
@@ -64,14 +63,14 @@ class RatingController
                 $count = $this->rating->update($data->id, $data->rating);
                 if ($count > 0) {
                     http_response_code(200);
-                    echo json_encode(["message" => "Filme atualizado com sucesso."]);
+                    echo json_encode(["message" => "Avaliacao atualizado com sucesso."]);
                 } else {
                     http_response_code(500);
-                    echo json_encode(["message" => "Erro ao atualizar o filme."]);
+                    echo json_encode(["message" => "Erro ao atualizar a Avaliacao."]);
                 }
             } catch (\Throwable $th) {
                 http_response_code(500);
-                echo json_encode(["message" => "Erro ao atualizar o filme."]);
+                echo json_encode(["message" => "Erro ao atualizar a Avaliacao."]);
             }
         } else {
             http_response_code(400);
@@ -88,14 +87,14 @@ class RatingController
 
                 if ($count > 0) {
                     http_response_code(200);
-                    echo json_encode(["message" => "Usuário deletado com sucesso."]);
+                    echo json_encode(["message" => "Avaliacao deletada com sucesso."]);
                 } else {
                     http_response_code(500);
-                    echo json_encode(["message" => "Erro ao deletar o usuário."]);
+                    echo json_encode(["message" => "Erro ao deletar a Avaliacao."]);
                 }
             } catch (\Throwable $th) {
                 http_response_code(500);
-                echo json_encode(["message" => "Erro ao deletar o usuário."]);
+                echo json_encode(["message" => "Erro ao deletar a Avaliacao."]);
             }
         } else {
             http_response_code(400);

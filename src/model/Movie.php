@@ -21,7 +21,7 @@ class Movie
 
     public function list()
     {
-        $sql = "SELECT id, nome FROM movies";
+        $sql = "SELECT id, nome, descricao FROM movies";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

@@ -11,20 +11,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'senha' => $senha
     ];
 
-    // Atualize o endpoint para o correto de login
-    $ch = curl_init("http://localhost:8000/src/api/users/login"); // Rota configurada para o login
+    $ch = curl_init("http://localhost:8000/src/api/users/login"); 
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
     curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
 
-    // Executa a requisição e obtém a resposta
     $response = curl_exec($ch);
     curl_close($ch);
 
     $result = json_decode($response, true);
 
-    // Verifica o resultado do login
     if (isset($result['status']) && $result['status'] == 'success') {
         $_SESSION['user_id'] = $result['user_id'];
         header("Location: home.php");
@@ -41,9 +38,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="/src/view/style.css">
+    <link rel="stylesheet" href="style.css">
     <style>
-        /* Estilo da mensagem de erro */
         .error-message {
             color: #d9534f;
             background-color: #f2dede;
@@ -56,11 +52,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </style>
 </head>
 <body>
-    <!-- Formulário de Login -->
     <div class="form-container" id="login-form">
         <h2>Login</h2>
 
-        <!-- Mensagem de erro -->
         <?php if (!empty($error_message)): ?>
             <div class="error-message"><?php echo htmlspecialchars($error_message); ?></div>
         <?php endif; ?>
@@ -70,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="email" id="login-email" name="email" required>
             <br>
             <label for="login-password">Senha:</label>
-            <input type="password" id="login-password" name="senha" required> <!-- Alterado para "senha" -->
+            <input type="password" id="login-password" name="senha" required>
             <br>
             <button type="submit">Entrar</button>
             <p>Não possui conta? <a href="register.php">Cadastre-se</a></p>

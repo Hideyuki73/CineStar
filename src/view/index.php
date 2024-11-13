@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bem-vindo ao CineStar</title>
-    <link rel="stylesheet" href="/src/view/styles.css"> <!-- Link opcional para CSS -->
+    <link rel="stylesheet" href="styles.css"> 
 </head>
 <body>
     <header>
@@ -13,7 +13,7 @@
     </header>
 
     <main>
-        <!-- Links para as páginas de Login e Registro -->
+
         <div class="auth-links">
             <a href="/src/controller/login.php" class="button">Login</a>
             <a href="/src/controller/register.php" class="button">Registrar</a>

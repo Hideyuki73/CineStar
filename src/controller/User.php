@@ -147,5 +147,4 @@ class UserController
         echo json_encode(["status" => "error", "message" => "Dados incompletos."]);
     }
 }
-
 }

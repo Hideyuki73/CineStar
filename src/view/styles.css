@@ -12,8 +12,8 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background-color: #f0f0f0;
-    color: #333;
+    background-color: darkslategray;
+    color: black;
 }
 
 /* Estilo do cabeçalho */
@@ -24,12 +24,12 @@ header {
 
 header h1 {
     font-size: 2em;
-    color: #333;
+    color: rgb(160, 157, 157);
 }
 
 header p {
     font-size: 1.1em;
-    color: #555;
+    color: rgb(160, 157, 157);
 }
 
 /* Estilos principais */

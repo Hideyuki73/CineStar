@@ -88,14 +88,14 @@ class MovieController
 
                 if ($count > 0) {
                     http_response_code(200);
-                    echo json_encode(["message" => "Usuário deletado com sucesso."]);
+                    echo json_encode(["message" => "Filme deletado com sucesso."]);
                 } else {
                     http_response_code(500);
-                    echo json_encode(["message" => "Erro ao deletar o usuário."]);
+                    echo json_encode(["message" => "Erro ao deletar o Filme."]);
                 }
             } catch (\Throwable $th) {
                 http_response_code(500);
-                echo json_encode(["message" => "Erro ao deletar o usuário."]);
+                echo json_encode(["message" => "Erro ao deletar o Filme."]);
             }
         } else {
             http_response_code(400);

@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'senha' => $senha
     ];
 
-    $ch = curl_init("http://localhost:8000/src/api/users"); // URL configurada com o router para a rota /users
+    $ch = curl_init("http://localhost:8000/src/api/users"); 
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
@@ -38,9 +38,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
-    <link rel="stylesheet" href="/src/view/style.css">
+    <link rel="stylesheet" href="style.css">
     <style>
-        /* Estilo da mensagem de erro */
         .error-message {
             color: #d9534f;
             background-color: #f2dede;
@@ -53,11 +52,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </style>
 </head>
 <body>
-    <!-- Formulário de Cadastro -->
+
     <div class="form-container" id="register-form">
         <h2>Cadastro</h2>
 
-        <!-- Mensagem de erro -->
         <?php if (!empty($error_message)): ?>
             <div class="error-message"><?php echo htmlspecialchars($error_message); ?></div>
         <?php endif; ?>
@@ -70,8 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="text" id="register-nickname" name="nickname" required>
             <br>
             <label for="register-password">Senha:</label>
-            <input type="password" id="register-password" name="senha" required> <!-- Alterado para "senha" -->
-            <br>
+            <input type="password" id="register-password" name="senha" required>
             <button type="submit">Cadastrar</button>
             <p>Já possui conta? <a href="login.php">Faça login</a></p>
         </form>
