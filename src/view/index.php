@@ -15,8 +15,8 @@
     <main>
 
         <div class="auth-links">
-            <a href="/src/controller/login.php" class="button">Login</a>
-            <a href="/src/controller/register.php" class="button">Registrar</a>
+            <a href="login.php" class="button">Login</a>
+            <a href="register.php" class="button">Registrar</a>
         </div>
     </main>
 

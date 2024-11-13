@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
 body {
@@ -9,67 +10,85 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    font-family: Arial, sans-serif;
     background-color: darkslategray;
+    color: #333;
 }
 
 .container {
-    width: 300px;
+    width: 100%;
+    max-width: 350px;
 }
 
 .form-container {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f0f0f0;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     text-align: center;
 }
 
 h2 {
     margin-bottom: 20px;
     color: #333;
+    font-size: 1.8em;
 }
 
 label {
     display: block;
-    margin-top: 10px;
+    margin-top: 15px;
+    font-size: 0.9em;
     color: #555;
-    font-weight: bold;
+    text-align: left;
 }
 
 input[type="email"],
 input[type="text"],
 input[type="password"] {
     width: 100%;
-    padding: 8px;
+    padding: 10px;
     margin-top: 5px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+}
+
+input[type="email"]:focus,
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-color: #007bff;
 }
 
 button {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     margin-top: 20px;
-    background-color: #4CAF50;
+    background-color: #007bff;
     color: #fff;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
+    font-size: 1em;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #0056b3;
 }
 
 p {
-    margin-top: 15px;
-    color: #666;
-    font-size: 14px;
+    margin-top: 20px;
+    color: #777;
+    font-size: 0.9em;
 }
 
 a {
-    color: #4CAF50;
+    color: #007bff;
     text-decoration: none;
     font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #0056b3;
 }
