@@ -5,9 +5,17 @@ class UserController
 {
     private $user;
 
-    public function __construct($db)
+    private static $INSTANCE;
+
+    public static function getInstance(){
+        if(!isset(self::$INSTANCE)){
+            self::$INSTANCE = new UserController();
+        }
+        return self::$INSTANCE;
+    }
+    public function __construct()
     {
-        $this->user = new User($db);
+        $this->user = new User(Database::getInstance());
     }
 
     public function list()
@@ -21,11 +29,12 @@ class UserController
         $data = json_decode(file_get_contents("php://input"));
         if (isset($data->nickname) && isset($data->email) && isset($data->senha)) {
             try {
-                $this->user->create($data->name, $data->email, $data->senha);
+                $this->user->create($data->nickname, $data->email, $data->senha);
 
                 http_response_code(201);
                 echo json_encode(["message" => "Usuário criado com sucesso."]);
             } catch (\Throwable $th) {
+                print_r($th);
                 http_response_code(500);
                 echo json_encode(["message" => "Erro ao criar o usuário."]);
             }
@@ -76,10 +85,10 @@ class UserController
         }
     }
 
-    public function update($id)
+    public function update()
     {
         $data = json_decode(file_get_contents("php://input"));
-        if (isset($id) && isset($data->nickname) && isset($data->email) && isset($data->senha)) {
+        if (isset($data->id) && isset($data->nickname) && isset($data->email) && isset($data->senha)) {
             try {
                 $count = $this->user->update($data->id, $data->nickname, $data->email, $data->senha);
                 if ($count > 0) {
@@ -99,10 +108,10 @@ class UserController
         }
     }
 
-    public function delete($id)
+    public function delete()
     {
         $data = json_decode(file_get_contents("php://input"));
-        if (isset($id)) {
+        if (isset($data->id)) {
             try {
                 $count = $this->user->delete($data->id);
 

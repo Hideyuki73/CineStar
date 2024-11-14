@@ -1,6 +1,6 @@
 CREATE DATABASE api;
 
-USE api_db;
+USE api;
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
@@ -12,14 +12,6 @@ CREATE TABLE users (
 CREATE TABLE movies (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
-    descricao VARCHAR(100) NOT NULL
-);
-
-CREATE TABLE rating (
-    id SERIAL PRIMARY KEY,
-    rating FLOAT,
-	id_users INT,
-	id_movies INT,
-    FOREIGN KEY (id_users) REFERENCES users(id),  
-    FOREIGN KEY (id_movies) REFERENCES movies(id)
+    descricao VARCHAR(100) NOT NULL,
+    rating FLOAT NOT NULL
 );

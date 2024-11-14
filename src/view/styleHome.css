@@ -1,0 +1,156 @@
+/* Reset e Configurações Globais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: darkslategray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Container Principal */
+.container {
+    width: 90%;
+    max-width: 950px;
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Cabeçalho */
+header {
+    background-color: #083d75;
+    color: #fff;
+    padding: 20px 0;
+    border-radius: 12px 12px 0 0;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+header h1 {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+/* Botões no Cabeçalho */
+header button {
+    background-color: #fff;
+    color: #083d75;
+    border: 2px solid #083d75;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: all 0.3s ease;
+}
+
+header button:hover {
+    background-color: #083d75;
+    color: #fff;
+    transform: translateY(-3px);
+}
+
+/* Botões nas Telas Principais */
+.button-group {
+    display: flex;
+    justify-content: end;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.button-group button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    background-color: #083d75;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button-group button:hover {
+    background-color: #0f4e92;
+    transform: translateY(-3px);
+}
+
+/* Tabela de Motos */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;
+}
+
+th, td {
+    padding: 18px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #083d75;
+    color: #fff;
+    font-size: 18px;
+}
+
+td {
+    background-color: #f9f9f9;
+    font-size: 16px;
+}
+
+tr:hover td {
+    background-color: #ffe0e0;
+}
+
+/* Botões na Tabela */
+td button {
+    background-color: #083d75;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+td button:hover {
+    background-color: #083d75;
+    transform: translateY(-2px);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .container {
+        padding: 25px;
+    }
+
+    header h1 {
+        font-size: 28px;
+    }
+
+    .button-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    table {
+        font-size: 14px;
+    }
+
+    td button {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+}

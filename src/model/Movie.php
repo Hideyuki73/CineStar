@@ -10,18 +10,19 @@ class Movie
         $this->conn = $db;
     }
 
-    public function create($nome, $descricao)
+    public function create($nome, $descricao, $rating)
     {
-        $sql = "INSERT INTO movies (nome, descricao) VALUES (:nome, :descricao)";
+        $sql = "INSERT INTO movies (nome, descricao, rating) VALUES (:nome, :descricao, :rating)";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':nome', $nome);
         $stmt->bindParam(':descricao', $descricao);
+        $stmt->bindParam(':rating', $rating);
         return $stmt->execute();
     }
 
     public function list()
     {
-        $sql = "SELECT id, nome, descricao FROM movies";
+        $sql = "SELECT id, nome, descricao, rating FROM movies";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

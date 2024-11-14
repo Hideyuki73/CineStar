@@ -5,9 +5,17 @@ class MovieController
 {
     private $movie;
 
-    public function __construct($db)
+    private static $INSTANCE;
+
+    public static function getInstance(){
+        if(!isset(self::$INSTANCE)){
+            self::$INSTANCE = new MovieController();
+        }
+        return self::$INSTANCE;
+    }
+    public function __construct()
     {
-        $this->movie = new Movie($db);
+        $this->movie = new Movie(Database::getInstance());
     }
 
     public function list()
@@ -19,9 +27,9 @@ class MovieController
     public function create()
     {
         $data = json_decode(file_get_contents("php://input"));
-        if (isset($data->nome) && isset($data->descricao)) {
+        if (isset($data->nome) && isset($data->descricao) && isset($data->rating)) {
             try {
-                $this->movie->create($data->nome, $data->descricao);
+                $this->movie->create($data->nome, $data->descricao, $data->rating);
 
                 http_response_code(201);
                 echo json_encode(["message" => "Filme criado com sucesso."]);
@@ -56,10 +64,10 @@ class MovieController
         }
     }
 
-    public function update($id)
+    public function update()
     {
         $data = json_decode(file_get_contents("php://input"));
-        if (isset($id) && isset($data->nome) && isset($data->descricao) && isset($data->rating)) {
+        if (isset($data->id) && isset($data->nome) && isset($data->descricao) && isset($data->rating)) {
             try {
                 $count = $this->movie->update($data->id, $data->nome, $data->descricao, $data->rating);
                 if ($count > 0) {
@@ -79,10 +87,10 @@ class MovieController
         }
     }
 
-    public function delete($id)
+    public function delete()
     {
         $data = json_decode(file_get_contents("php://input"));
-        if (isset($id)) {
+        if (isset($data->id)) {
             try {
                 $count = $this->movie->delete($data->id);
 

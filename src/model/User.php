@@ -22,7 +22,7 @@ class User
 
     public function list()
     {
-        $sql = "SELECT id, email FROM users";
+        $sql = "SELECT * FROM users";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
