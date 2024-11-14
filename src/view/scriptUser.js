@@ -8,6 +8,8 @@ async function registrauser() {
         method: "POST",
         body: JSON.stringify(user)
     }).then(resp => resp.text());
+
+    window.location.href = "/src/view/login.html"
 }
 
 async function logaruser(){
@@ -20,7 +22,6 @@ async function logaruser(){
         body: JSON.stringify(user)
     }).then(e => e.text());
 
-    console.log(data);
     window.location.href = "/src/view/home.html"
 }
 

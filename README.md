@@ -8,8 +8,7 @@ https://drive.google.com/file/d/1qf0WfyXkwxMwQ7O50s0TFNYGAFkt_eau/view?usp=drive
 
 ## Funcionalidades
 Cadastro e login do usuário
-API para pegar os filmes e cadastrar-los no sistema
-Usuário pode avaliar o filmes de 0 a 10
+Usuário pode avaliar e cadastrar seus filmes favoritos
 
 ## Tecnologias
 PHP
@@ -20,7 +19,6 @@ Composer
 ## Rotas
 http://localhost:8080/src/api/users
 http://localhost:8080/src/api/movies
-http://localhost:8080/src/api/rating
 
 ## Autor
 Rodrigo Hideyuki Kawakami

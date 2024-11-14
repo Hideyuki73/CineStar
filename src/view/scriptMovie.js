@@ -8,7 +8,8 @@ async function registraMovie() {
         method: "POST",
         body: JSON.stringify(movie)
     }).then(resp => resp.text());
-    console.log(data)
+
+    window.location.href = "/src/view/login.html"
 }
 
 async function fetchMovies() {
