@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'laboratorio/trab',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => null,
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => 'c1ebf2d74866aa05af676abc965b7436d0ff8fe4',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'laboratorio/trab' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => null,
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => 'c1ebf2d74866aa05af676abc965b7436d0ff8fe4',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

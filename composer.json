@@ -11,15 +11,15 @@
             "email": "rodrigokawakami123@gmail.com"
         }
     ],
-    "require": {
-
-    },
     "require-dev": {
-        "phpunit/phpunit": "^11.3"
+        "phpunit/phpunit": "^11.4"
     },
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests"
         }
+    },
+    "require": {
+        "guzzlehttp/guzzle": "*"
     }
 }

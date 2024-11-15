@@ -20,17 +20,13 @@ $router->add('PUT', '/movies', function () { MovieController::getInstance()->upd
 $router->add('GET', '/users', function () { 
     if(isset($_GET["id"])){
         UserController::getInstance()->getById($_GET["id"]);
-    } else {
-        UserController::getInstance()->list();
-    }
-});
-$router->add('GET', '/users', function () { 
-    if(isset($_GET["email"])){
+    } elseif (isset($_GET["email"])) {
         UserController::getInstance()->getByEmail($_GET["email"]);
     } else {
         UserController::getInstance()->list();
     }
 });
+
 $router->add('POST', '/users/login', function () { 
     UserController::getInstance()->login();
 });

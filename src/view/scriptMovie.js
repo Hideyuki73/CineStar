@@ -9,7 +9,7 @@ async function registraMovie() {
         body: JSON.stringify(movie)
     }).then(resp => resp.text());
 
-    window.location.href = "/src/view/login.html"
+    window.location.href = "/src/view/home.html"
 }
 
 async function fetchMovies() {
