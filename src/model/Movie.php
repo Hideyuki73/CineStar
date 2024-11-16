@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once '../config/db.php';
 
 class Movie
@@ -12,6 +13,11 @@ class Movie
 
     public function create($nome, $descricao, $rating, $id_users)
     {
+        if (!isset($_SESSION['user_id'])) {
+            throw new Exception("Usuário não está logado.");
+        }
+
+        $id_users = $_SESSION['user_id'];
         $sql = "INSERT INTO movies (nome, descricao, rating, id_users) VALUES (:nome, :descricao, :rating, :id_users)";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':nome', $nome);
@@ -23,8 +29,14 @@ class Movie
 
     public function list()
     {
-        $sql = "SELECT id, nome, descricao, rating FROM movies";
+        if (!isset($_SESSION['user_id'])) {
+            throw new Exception("Usuário não está logado.");
+        }
+
+        $id_users = $_SESSION['user_id'];
+        $sql = "SELECT id, nome, descricao, rating FROM movies WHERE id_users = :id_users";
         $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':id_users', $id_users);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -38,9 +50,14 @@ class Movie
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function update($id, $nome, $descricao, $rating, $id_users)
+    public function update($id, $nome, $descricao, $rating)
     {
-        $sql = "UPDATE movies SET nome = :nome, descricao = :descricao, rating = :rating, id_users = :id_users WHERE id = :id";
+        if (!isset($_SESSION['user_id'])) {
+            throw new Exception("Usuário não está logado.");
+        }
+
+        $id_users = $_SESSION['user_id'];
+        $sql = "UPDATE movies SET nome = :nome, descricao = :descricao, rating = :rating WHERE id = :id AND id_users = :id_users";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':id', $id);
         $stmt->bindParam(':nome', $nome);
@@ -51,12 +68,20 @@ class Movie
         return $stmt->rowCount();
     }
 
+
     public function delete($id)
     {
-        $sql = "DELETE FROM movies WHERE id = :id";
+        if (!isset($_SESSION['user_id'])) {
+            throw new Exception("Usuário não está logado.");
+        }
+
+        $id_users = $_SESSION['user_id'];
+        $sql = "DELETE FROM movies WHERE id = :id AND id_users = :id_users";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':id_users', $id_users);
         $stmt->execute();
         return $stmt->rowCount();
     }
+
 }
