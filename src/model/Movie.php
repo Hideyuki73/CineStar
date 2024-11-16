@@ -10,13 +10,14 @@ class Movie
         $this->conn = $db;
     }
 
-    public function create($nome, $descricao, $rating)
+    public function create($nome, $descricao, $rating, $id_users)
     {
-        $sql = "INSERT INTO movies (nome, descricao, rating) VALUES (:nome, :descricao, :rating)";
+        $sql = "INSERT INTO movies (nome, descricao, rating, id_users) VALUES (:nome, :descricao, :rating, :id_users)";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':nome', $nome);
         $stmt->bindParam(':descricao', $descricao);
         $stmt->bindParam(':rating', $rating);
+        $stmt->bindParam(':id_users', $id_users);
         return $stmt->execute();
     }
 
@@ -37,14 +38,15 @@ class Movie
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function update($id, $nome, $descricao, $rating)
+    public function update($id, $nome, $descricao, $rating, $id_users)
     {
-        $sql = "UPDATE movies SET nome = :nome, descricao = :descricao, rating = :rating WHERE id = :id";
+        $sql = "UPDATE movies SET nome = :nome, descricao = :descricao, rating = :rating, id_users = :id_users WHERE id = :id";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':id', $id);
         $stmt->bindParam(':nome', $nome);
         $stmt->bindParam(':descricao', $descricao);
         $stmt->bindParam(':rating', $rating);
+        $stmt->bindParam(':id_users', $id_users);
         $stmt->execute();
         return $stmt->rowCount();
     }

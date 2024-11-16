@@ -27,9 +27,9 @@ class MovieController
     public function create()
     {
         $data = json_decode(file_get_contents("php://input"));
-        if (isset($data->nome) && isset($data->descricao) && isset($data->rating)) {
+        if (isset($data->nome) && isset($data->descricao) && isset($data->rating) && isset($data->id_users)) {
             try {
-                $this->movie->create($data->nome, $data->descricao, $data->rating);
+                $this->movie->create($data->nome, $data->descricao, $data->rating, $data->id_users);
 
                 http_response_code(201);
                 echo json_encode(["message" => "Filme criado com sucesso."]);
@@ -67,9 +67,9 @@ class MovieController
     public function update()
     {
         $data = json_decode(file_get_contents("php://input"));
-        if (isset($data->id) && isset($data->nome) && isset($data->descricao) && isset($data->rating)) {
+        if (isset($data->id) && isset($data->nome) && isset($data->descricao) && isset($data->rating) && $data->id_users) {
             try {
-                $count = $this->movie->update($data->id, $data->nome, $data->descricao, $data->rating);
+                $count = $this->movie->update($data->id, $data->nome, $data->descricao, $data->rating, $data->id_users);
                 if ($count > 0) {
                     http_response_code(200);
                     echo json_encode(["message" => "Filme atualizado com sucesso."]);

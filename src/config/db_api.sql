@@ -13,5 +13,7 @@ CREATE TABLE movies (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     descricao VARCHAR(100) NOT NULL,
-    rating FLOAT NOT NULL
+    rating FLOAT NOT NULL,
+    id_users INT NOT NULL, 
+    FOREIGN KEY (id_users) REFERENCES users (id)
 );
