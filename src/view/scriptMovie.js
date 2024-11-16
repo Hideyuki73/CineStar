@@ -4,20 +4,48 @@ async function registraMovie() {
         descricao: document.getElementById('descricao').value,
         rating: document.getElementById('rating').value,
     };
-    let data = await fetch("http://localhost:8080/src/api/movies", {
-        method: "POST",
-        body: JSON.stringify(movie)
-    }).then(resp => resp.text());
 
-    window.location.href = "/src/view/home.html"
+    let userId = localStorage.getItem('user_id');
+    if (!userId) {
+        alert("Usuário não autenticado. Faça login novamente.");
+        return;
+    }
+
+    let response = await fetch("http://localhost:8080/src/api/movies", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...movie })
+    });
+
+    if (response.ok) {
+        alert("Filme cadastrado com sucesso!");
+        window.location.href = "/src/view/home.html";
+    } else {
+        alert("Erro ao cadastrar filme.");
+    }
 }
+
 
 async function fetchMovies() {
-    let movies = await fetch(`http://localhost:8080/src/api/movies`, {
+    let userId = localStorage.getItem('user_id');
+    if (!userId) {
+        alert("Usuário não autenticado. Faça login novamente.");
+        return [];
+    }
+
+    let response = await fetch(`http://localhost:8080/src/api/movies`, {
         method: "GET",
-    }).then(response => response);
-    return movies.json();
+        headers: { "Content-Type": "application/json" }
+    });
+
+    if (response.ok) {
+        return await response.json();
+    } else {
+        alert("Erro ao carregar filmes.");
+        return [];
+    }
 }
+
 
 
 async function fetchMovie(id) {
@@ -39,19 +67,21 @@ async function removeMovie(meuId) {
 
 async function carregarMovies() {
     const tabela = document.querySelector('#movieTable tbody');
-    let dado = await fetchMovies();
-        dado.forEach((movie) => {
-            const linha = `<tr>
+    tabela.innerHTML = "";
+
+    let filmes = await fetchMovies();
+    filmes.forEach((movie) => {
+        const linha = `<tr>
             <td>${movie.nome}</td>
             <td>${movie.descricao}</td>
             <td>${movie.rating}</td>
             <td><button onclick="removeMovie(${movie.id})">Deletar</button></td>
             <td><button onclick="window.location.href='/src/view/registermovie.html?id=${movie.id}'">Editar</button></td>
-
         </tr>`;
-            tabela.innerHTML += linha;
-        });
+        tabela.innerHTML += linha;
+    });
 }
+
 
 carregarMovies()
 

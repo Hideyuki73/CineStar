@@ -1,19 +1,12 @@
 <?php
 require_once '../config/db.php';
-
 class User
 {
-    private $conn;
-
-    public function __construct($db)
-    {
-        $this->conn = $db;
-    }
 
     public function create($nickname, $email, $senha)
     {
         $sql = "INSERT INTO users (nickname,email,senha) VALUES (:nickname, :email, :senha)";
-        $stmt = $this->conn->prepare($sql);
+        $stmt = Database::getInstance()->prepare($sql);
         $stmt->bindParam(':nickname', $nickname);
         $stmt->bindParam(':email', $email);
         $stmt->bindParam(':senha', $senha);
@@ -23,7 +16,7 @@ class User
     public function list()
     {
         $sql = "SELECT * FROM users";
-        $stmt = $this->conn->prepare($sql);
+        $stmt = Database::getInstance()->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -31,7 +24,7 @@ class User
     public function getById($id)
     {
         $sql = "SELECT * FROM users WHERE id = :id";
-        $stmt = $this->conn->prepare($sql);
+        $stmt = Database::getInstance()->prepare($sql);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -40,7 +33,7 @@ class User
     public function getByEmail($email)
     {
         $sql = "SELECT * FROM users WHERE email = :email";
-        $stmt = $this->conn->prepare($sql);
+        $stmt = Database::getInstance()->prepare($sql);
         $stmt->bindParam(':email', $email);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -49,7 +42,7 @@ class User
     public function update($id, $nickname, $email, $senha)
     {
         $sql = "UPDATE users SET nickname = :nickname, email = :email, senha = :senha WHERE id = :id";
-        $stmt = $this->conn->prepare($sql);
+        $stmt = Database::getInstance()->prepare($sql);
         $stmt->bindParam(':id', $id);
         $stmt->bindParam(':nickname', $nickname);
         $stmt->bindParam(':email', $email);
@@ -61,7 +54,7 @@ class User
     public function delete($id)
     {
         $sql = "DELETE FROM users WHERE id = :id";
-        $stmt = $this->conn->prepare($sql);
+        $stmt = Database::getInstance()->prepare($sql);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
         return $stmt->rowCount();

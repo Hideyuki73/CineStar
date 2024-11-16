@@ -30,6 +30,12 @@ $router->add('GET', '/users', function () {
 $router->add('POST', '/users/login', function () { 
     UserController::getInstance()->login();
 });
+$router->add('POST', '/users/logout', function () {
+    session_start();
+    session_destroy(); 
+    echo json_encode(["status" => "success", "message" => "Logout realizado com sucesso."]);
+});
+
 $router->add('GET', '/users', function () { UserController::getInstance()->list();});
 $router->add('POST', '/users', function () { UserController::getInstance()->create();});
 $router->add('DELETE', '/users', function () { UserController::getInstance()->delete();});

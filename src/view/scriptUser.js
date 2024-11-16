@@ -12,18 +12,37 @@ async function registrauser() {
     window.location.href = "/src/view/login.html"
 }
 
-async function logaruser(){
+async function logaruser() {
     const user = {
         email: document.getElementById('login-email').value,
         senha: document.getElementById('login-password').value
-    }
-    let data = await fetch(`http://localhost:8080/src/api/users/login`, {
+    };
+    let response = await fetch("http://localhost:8080/src/api/users/login", {
         method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(user)
-    }).then(e => e.text());
+    });
 
-    window.location.href = "/src/view/home.html"
+    if (response.ok) {
+        let data = await response.json();
+        localStorage.setItem('user_id', data.user_id); 
+        window.location.href = "/src/view/home.html";
+    } else {
+        alert("Erro ao fazer login. Verifique suas credenciais.");
+    }
 }
+
+async function logout() {
+    let response = await fetch("http://localhost:8080/src/api/users/logout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+    });
+
+    console.log(response);
+
+    window.location.href='/src/view/';
+}
+
 
 async function fetchUsers() {
     let users = await fetch(`http://localhost:8080/src/api/users`, {

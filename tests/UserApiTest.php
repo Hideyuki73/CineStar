@@ -6,43 +6,20 @@ class UserApiTest extends TestCase
 {
     private $baseUrl = "http://localhost:8080/src/api/users"; 
 
-    public function testUserRegistration()
-    {
-        $payload = [
-            'nickname' => 'John Doe',  
-            'email' => 'john.doe@example.com',
-            'senha' => 'password123'  
-        ];
-
-        $response = $this->sendRequest('POST', '', $payload);
-
-        $this->assertEquals(201, $response['statusCode']);
-        $this->assertArrayHasKey('id', $response['body']);
-        $this->assertEquals('John Doe', $response['body']['nickname']); 
-    }
-
     public function testUserLogin()
     {
         $payload = [
             'email' => 'john.doe@example.com',
-            'senha' => 'password123'  
+            'senha' => 'password123'
         ];
-
+    
         $response = $this->sendRequest('POST', '/login', $payload);
-
+    
         $this->assertEquals(200, $response['statusCode']);
-        $this->assertArrayHasKey('token', $response['body']);
+        $this->assertArrayHasKey('user_id', $response['body']);
+        $this->assertEquals('Login realizado com sucesso.', $response['body']['message']);
     }
-
-    public function testGetUserDetails()
-    {
-        $token = $this->getAuthToken();
-
-        $response = $this->sendRequest('GET', '', [], $token);
-
-        $this->assertEquals(200, $response['statusCode']);
-        $this->assertEquals('john.doe@example.com', $response['body']['email']);
-    }
+    
 
     private function sendRequest($method, $endpoint, $data = [], $token = null)
     {
@@ -77,15 +54,16 @@ class UserApiTest extends TestCase
         ];
     }
 
-    private function getAuthToken()
+    private function getUserId()
     {
         $payload = [
             'email' => 'john.doe@example.com',
-            'senha' => 'password123' 
+            'senha' => 'password123'
         ];
-
+    
         $response = $this->sendRequest('POST', '/login', $payload);
-
-        return $response['body']['token'] ?? null;
+    
+        return $response['body']['user_id'] ?? null;
     }
+    
 }

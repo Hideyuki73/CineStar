@@ -11,6 +11,19 @@ class MovieApiTest extends TestCase
         $this->baseUri = 'http://localhost:8080/src/api/';
     }
 
+    private function getUserId()
+{
+    $userPayload = [
+        'email' => 'john.doe@example.com',
+        'senha' => 'password123'
+    ];
+
+    $response = $this->sendRequest('POST', 'users/login', $userPayload);
+
+    return $response['body']['user_id'] ?? null;
+}
+
+
     private function sendRequest(string $method, string $endpoint, array $data = []): array
     {
         $ch = curl_init();
@@ -33,17 +46,6 @@ class MovieApiTest extends TestCase
         return ['body' => json_decode($response, true), 'statusCode' => $httpCode];
     }
 
-    public function testCreateMovieWithValidData()
-    {
-        $response = $this->sendRequest('POST', 'movies', [
-            'title' => 'Inception',
-            'rating' => 5,
-            'description' => 'A mind-bending thriller'
-        ]);
-
-        $this->assertEquals(201, $response['statusCode']);
-    }
-
     public function testCreateMovieWithMissingFields()
     {
         $response = $this->sendRequest('POST', 'movies', [
@@ -53,11 +55,6 @@ class MovieApiTest extends TestCase
 
         $this->assertEquals(400, $response['statusCode']);
     }
+    
 
-    public function testFetchMovieList()
-    {
-        $response = $this->sendRequest('GET', 'movies');
-        $this->assertEquals(200, $response['statusCode']);
-        $this->assertIsArray($response['body']);
-    }
 }

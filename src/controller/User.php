@@ -133,27 +133,31 @@ class UserController
     }
 
     public function login()
-{
-    $data = json_decode(file_get_contents("php://input"));
-    if (isset($data->email) && isset($data->senha)) {
-        $email = $data->email;
-        $senha = $data->senha;
-
-        $user = $this->user->getByEmail($email);
-
-        if ($user && password_verify($senha, $user['senha'])) {
-            echo json_encode([
-                "status" => "success",
-                "message" => "Login realizado com sucesso.",
-                "user_id" => $user['id']
-            ]);
+    {
+        session_start();
+    
+        $data = json_decode(file_get_contents("php://input"));
+        if (isset($data->email) && isset($data->senha)) {
+            $email = $data->email;
+            $senha = $data->senha;
+    
+            $user = $this->user->getByEmail($email);
+    
+            if ($user &&  $user['senha'] == $senha) {
+                $_SESSION['user_id'] = $user['id']; 
+                echo json_encode([
+                    "status" => "success",
+                    "message" => "Login realizado com sucesso.",
+                    "user_id" => $user['id']
+                ]);
+            } else {
+                http_response_code(401);
+                echo json_encode(["status" => "error", "message" => "Email ou senha incorretos."]);
+            }
         } else {
-            http_response_code(401);
-            echo json_encode(["status" => "error", "message" => "Email ou senha incorretos."]);
+            http_response_code(400);
+            echo json_encode(["status" => "error", "message" => "Dados incompletos."]);
         }
-    } else {
-        http_response_code(400);
-        echo json_encode(["status" => "error", "message" => "Dados incompletos."]);
     }
-}
+    
 }
