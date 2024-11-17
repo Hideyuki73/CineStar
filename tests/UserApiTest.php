@@ -6,20 +6,67 @@ class UserApiTest extends TestCase
 {
     private $baseUrl = "http://localhost:8080/src/api/users"; 
 
-    public function testUserLogin()
+    public function testCreateUser()
     {
+        $email = 'teste@teste.com';
         $payload = [
-            'email' => 'john.doe@example.com',
+            'nickname' => 'teste',
+            'email' => $email,
             'senha' => 'password123'
         ];
-    
-        $response = $this->sendRequest('POST', '/login', $payload);
-    
-        $this->assertEquals(200, $response['statusCode']);
-        $this->assertArrayHasKey('user_id', $response['body']);
-        $this->assertEquals('Login realizado com sucesso.', $response['body']['message']);
+
+        $response = $this->sendRequest('POST', '', $payload);
+
+        $this->assertEquals(201, $response['statusCode']);
+
+        // Buscar o usuário criado para obter o ID correto
+        $userResponse = $this->sendRequest('GET', "?email=$email");
+        $createdUserId = $this->extractUserId($userResponse['body'], $email);
+        $this->assertNotNull($createdUserId, "Usuário criado com sucesso.");
     }
-    
+
+    public function testUpdateUser()
+    {
+        // Buscar o usuário criado no teste anterior
+        $email = 'teste@teste.com';
+        $userResponse = $this->sendRequest('GET', "?email=$email");
+        $createdUserId = $this->extractUserId($userResponse['body'], $email);
+
+        // Atualizar o usuário criado
+        $payloadUpdate = [
+            'id' => $createdUserId,
+            'nickname' => 'teste2',
+            'email' => 'teste2@teste.com',
+            'senha' => 'newpassword123'
+        ];
+        $responseUpdate = $this->sendRequest('PUT', '', $payloadUpdate);
+        $this->assertEquals(200, $responseUpdate['statusCode']);
+        $this->assertEquals('Usuário atualizado com sucesso.', $responseUpdate['body']['message']);
+    }
+
+    public function testDeleteUser()
+    {
+        // Buscar o usuário atualizado no teste anterior
+        $email = 'teste2@teste.com';
+        $userResponse = $this->sendRequest('GET', "?email=$email");
+        $updatedUserId = $this->extractUserId($userResponse['body'], $email);
+
+        // Deletar o usuário atualizado
+        $payloadDelete = ['id' => $updatedUserId];
+        $responseDelete = $this->sendRequest('DELETE', '', $payloadDelete);
+        $this->assertEquals(200, $responseDelete['statusCode']);
+        $this->assertEquals('Usuário deletado com sucesso.', $responseDelete['body']['message']);
+    }
+
+    private function extractUserId(array $users, string $email): ?string
+    {
+        foreach ($users as $user) {
+            if ($user['email'] === $email) {
+                return $user['id'];
+            }
+        }
+        return null;
+    }
 
     private function sendRequest($method, $endpoint, $data = [], $token = null)
     {
@@ -53,17 +100,4 @@ class UserApiTest extends TestCase
             'body' => json_decode($result, true)
         ];
     }
-
-    private function getUserId()
-    {
-        $payload = [
-            'email' => 'john.doe@example.com',
-            'senha' => 'password123'
-        ];
-    
-        $response = $this->sendRequest('POST', '/login', $payload);
-    
-        return $response['body']['user_id'] ?? null;
-    }
-    
 }
