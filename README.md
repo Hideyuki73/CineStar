@@ -6,8 +6,7 @@ O CineStar é um site criado para que os usuários possam avaliar filmes, expres
 Principais usuários são os que assistem diversos filmes, de crianças a idosos.
 
 ## Diagrama
-O diagrama do projeto pode ser visualizado no link abaixo:
-Diagrama do CineStar
+https://drive.google.com/file/d/1qf0WfyXkwxMwQ7O50s0TFNYGAFkt_eau/view?usp=drive_link
 
 ## Funcionalidades
 ### Cadastro e Login de Usuários
