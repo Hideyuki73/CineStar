@@ -25,6 +25,41 @@ class UserApiTest extends TestCase
         $this->assertNotNull($createdUserId, "Usuário criado com sucesso.");
     }
 
+    public function testLogin()
+{
+    $email = 'teste@teste.com';
+    $senha = 'password123';
+
+    // Tentativa de login com dados válidos
+    $payload = [
+        'email' => $email,
+        'senha' => $senha
+    ];
+    $response = $this->sendRequest('POST', '/login', $payload);
+    $this->assertEquals(200, $response['statusCode']);
+    $this->assertEquals('Login realizado com sucesso.', $response['body']['message']);
+
+    // Tentativa de login com senha incorreta
+    $payloadWrongPassword = [
+        'email' => $email,
+        'senha' => 'wrongpassword'
+    ];
+    $responseWrongPassword = $this->sendRequest('POST', '/login', $payloadWrongPassword);
+    $this->assertEquals(401, $responseWrongPassword['statusCode']);
+    $this->assertEquals('Email ou senha incorretos.', $responseWrongPassword['body']['message']);
+
+    // Tentativa de login com email inexistente
+    $payloadWrongEmail = [
+        'email' => 'email_inexistente@teste.com',
+        'senha' => 'password123'
+    ];
+    $responseWrongEmail = $this->sendRequest('POST', '/login', $payloadWrongEmail);
+    $this->assertEquals(401, $responseWrongEmail['statusCode']);
+    $this->assertEquals('Email ou senha incorretos.', $responseWrongEmail['body']['message']);
+}
+
+
+
     public function testUpdateUser()
     {
         // Buscar o usuário criado no teste anterior
@@ -100,4 +135,34 @@ class UserApiTest extends TestCase
             'body' => json_decode($result, true)
         ];
     }
+
+    public function testCreateUserWithIncompleteData()
+{
+    // Tentativa de criação de usuário sem o campo 'nickname'
+    $payloadWithoutNickname = [
+        'email' => 'teste@incompleto.com',
+        'senha' => 'password123'
+    ];
+    $responseWithoutNickname = $this->sendRequest('POST', '', $payloadWithoutNickname);
+    $this->assertEquals(400, $responseWithoutNickname['statusCode']);
+    $this->assertEquals('Dados incompletos.', $responseWithoutNickname['body']['message']);
+
+    // Tentativa de criação de usuário sem o campo 'email'
+    $payloadWithoutEmail = [
+        'nickname' => 'teste_incompleto',
+        'senha' => 'password123'
+    ];
+    $responseWithoutEmail = $this->sendRequest('POST', '', $payloadWithoutEmail);
+    $this->assertEquals(400, $responseWithoutEmail['statusCode']);
+    $this->assertEquals('Dados incompletos.', $responseWithoutEmail['body']['message']);
+
+    // Tentativa de criação de usuário sem o campo 'senha'
+    $payloadWithoutSenha = [
+        'nickname' => 'teste_incompleto',
+        'email' => 'teste@incompleto.com'
+    ];
+    $responseWithoutSenha = $this->sendRequest('POST', '', $payloadWithoutSenha);
+    $this->assertEquals(400, $responseWithoutSenha['statusCode']);
+    $this->assertEquals('Dados incompletos.', $responseWithoutSenha['body']['message']);
+}
 }
